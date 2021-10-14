@@ -294,6 +294,8 @@ class TelaConfiguracoes extends StatefulWidget {
 class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
   var usuario = TextEditingController();
   var senha = TextEditingController();
+  bool swnotif = false;
+  bool swsound = false;
 
   @override
   Widget build(BuildContext context) {
@@ -365,6 +367,30 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
+            Row(
+              children: [
+                Switch(
+                    value: swnotif,
+                    onChanged: (value) {
+                      setState(() {
+                        swnotif = value;
+                      });
+                    }),
+                Text('Notificações'),
+              ],
+            ),
+            Row(
+              children: [
+                Switch(
+                    value: swsound,
+                    onChanged: (value) {
+                      setState(() {
+                        swsound = value;
+                      });
+                    }),
+                Text('Sons')
+              ],
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.grey.shade500),
               onPressed: () {

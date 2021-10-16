@@ -2,17 +2,24 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
+//ROTINA PRINCIPAL
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Catálogo FARB",
+    //ROTAS A SEREM UTILIZADAS PELO NAVIGATOR
     initialRoute: 't1',
     routes: {
       't1': (context) => TelaInicial(),
-      't2': (context) => Lancamentos()
+      't2': (context) => Lancamentos(),
+      't3': (context) => TelaCadastro()
     },
   ));
 }
+
+//
+//CLASSE PARA ENVIAR DADOS DE UMA TELA PARA OUTRA
+//
 
 class Login {
   String usuario;
@@ -30,6 +37,9 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
   @override
   Widget build(BuildContext context) {
+//
+//SPLASHSCREEN PARA SIMULAR UM LOADING INICIAL
+//
     return SplashScreen(
       seconds: 4,
       navigateAfterSeconds: Lancamentos(),
@@ -54,6 +64,9 @@ class Lancamentos extends StatefulWidget {
 }
 
 class _LancamentosState extends State<Lancamentos> {
+//
+//CONFIGURAÇÕES DO BOTTOM NAVIGATOR BAR
+//
   var telaAtual = 0;
   var pageController = PageController();
   @override
@@ -136,6 +149,9 @@ class _TelaHomeState extends State<TelaHome> {
 
   @override
   Widget build(BuildContext context) {
+//
+//RECEBER DADOS DE OUTRA TELA
+//
     var obj = ModalRoute.of(context)!.settings.arguments as Login;
     if (obj == null) {
       obj = Login("Visitante", "senha");
@@ -147,6 +163,9 @@ class _TelaHomeState extends State<TelaHome> {
         backgroundColor: Colors.grey.shade500,
         actions: [Text(obj.usuario)],
       ),
+//
+//CRIAÇÃO DO GRIDVIEW
+//
       body: GridView.builder(
         padding: EdgeInsets.all(10),
         gridDelegate:
@@ -175,6 +194,10 @@ class _TelaHomeState extends State<TelaHome> {
   }
 }
 
+//
+//TELA QUE PERMITIRÁ REALIZAR PESQUISAS
+//
+
 class TelaPesquisar extends StatefulWidget {
   const TelaPesquisar({Key? key}) : super(key: key);
 
@@ -201,6 +224,10 @@ class _TelaPesquisarState extends State<TelaPesquisar> {
     );
   }
 }
+
+//
+//TELA DO TIPO CARRINHO
+//
 
 class TelaCarrinho extends StatefulWidget {
   const TelaCarrinho({Key? key}) : super(key: key);
@@ -235,6 +262,9 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
 
   @override
   Widget build(BuildContext context) {
+//
+//ROTINA PARA RECEBER DADOS DE OUTRA TELA
+//
     var obj = ModalRoute.of(context)!.settings.arguments as Login;
     if (obj == null) {
       obj = Login("Visitante", "senha");
@@ -267,10 +297,10 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                       tamanho--;
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
-                          'Removido',
+                          'REMOVIDO',
                           textAlign: TextAlign.center,
                         ),
-                        duration: Duration(seconds: 2),
+                        duration: Duration(seconds: 4),
                       ));
                     });
                   },
@@ -292,8 +322,12 @@ class TelaConfiguracoes extends StatefulWidget {
 }
 
 class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
+//
+//VARIAVEIS PARA O TEXTBOX DE USUSARIO E SENHA E DOS SWITCHS
+//
   var usuario = TextEditingController();
   var senha = TextEditingController();
+  var email = TextEditingController();
   bool swnotif = false;
   bool swsound = false;
 
@@ -303,21 +337,34 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade500,
+        centerTitle: true,
         title: Text(
           'Configurações',
-          textAlign: TextAlign.center,
         ),
       ),
       body: Center(
         child: Column(
           children: [
+            //
+            //IMAGEM E TEXTBOX DE LOGIN
+            //
             Image.asset('imagens/logo_farb.png'),
+            //
+            //CONDICIONAL PARA SABER SE ESTÁ LOGADO OU COMO VISITANTE
+            //
             (obj == null)
                 ? Expanded(
+                    //
+                    //SE SIM EXECUTA ESSE CONTAINER
+                    //
                     child: Container(
                       padding: EdgeInsets.all(30),
+                      //
+                      //ORGANIZA OS ITEMS EMPILHADOS
+                      //
                       child: Column(
                         children: [
+                          //CAMPO USUARIO
                           TextField(
                             controller: usuario,
                             decoration: InputDecoration(
@@ -328,6 +375,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                           SizedBox(
                             height: 10,
                           ),
+                          //CAMPO SENHA
                           TextField(
                             controller: senha,
                             decoration: InputDecoration(
@@ -338,14 +386,15 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                           SizedBox(
                             height: 10,
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
+                          //BOTÃO DE LOGIN
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 primary: Colors.grey.shade500),
                             onPressed: () {
                               setState(() {
+                                //
+                                //ENVIAR DADOS PARA OUTRA TELA
+                                //
                                 obj = Login(usuario.text, senha.text);
                                 Navigator.pushNamed(context, 't2',
                                     arguments: obj);
@@ -356,17 +405,137 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                                     color: Colors.black,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold)),
-                          )
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          //BOTAO ESQUECI MINHA SENHA
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.grey.shade500),
+                            onPressed: () {
+                              setState(() {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('ESQUECI MINHA SENHA'),
+                                        content: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              4,
+                                          child: Column(
+                                            children: [
+                                              //
+                                              //CAMPO DE TEXTO E BOTAO DE ESQUECI SENHA
+                                              //
+                                              TextField(
+                                                controller: email,
+                                                decoration: InputDecoration(
+                                                  labelText: 'email',
+                                                  border: OutlineInputBorder(),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              //BOTÃO DE LOGIN
+                                              ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    primary:
+                                                        Colors.grey.shade500),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    //
+                                                    //ENVIAR DADOS PARA RECUPERAR SENHA E FECHAR
+                                                    //
+                                                    Navigator.of(context).pop();
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                        'VERIFIQUE SUA CAIXA DE ENTRADA',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                      duration:
+                                                          Duration(seconds: 4),
+                                                    ));
+                                                  });
+                                                },
+                                                child: Text('RECUPERAR SENHA',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              'FECHAR',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    });
+                              });
+                            },
+                            child: Text('ESQUECI MINHA SENHA',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          //
+                          //BOTÃO CADASTRAR
+                          //
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.grey.shade500),
+                            onPressed: () {
+                              setState(() {
+                                //
+                                //CHAMAR OUTRA TELA
+                                //
+                                Navigator.pushNamed(context, 't3',
+                                    arguments: null);
+                              });
+                            },
+                            child: Text('CADASTRAR',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       ),
                     ),
                   )
+                //
+                //SE NAO EXECUTA ESSE EXPANDED
+                //
                 : Expanded(
                     child: Text(
                       "Você está logado como " + obj.usuario,
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
+            //
+            //SWITCHS DE CONFIGURAÇAO
+            //
             Row(
               children: [
                 Switch(
@@ -391,6 +560,9 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                 Text('Sons')
               ],
             ),
+            //
+            //BOTAO DAS INFORMAÇOES SOBRE
+            //
             ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.grey.shade500),
               onPressed: () {
@@ -445,5 +617,81 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
         ),
       ),
     );
+  }
+}
+
+class TelaCadastro extends StatefulWidget {
+  const TelaCadastro({Key? key}) : super(key: key);
+
+  @override
+  _TelaCadastroState createState() => _TelaCadastroState();
+}
+
+class _TelaCadastroState extends State<TelaCadastro> {
+  var nomecompleto = TextEditingController();
+  var email = TextEditingController();
+  var senha = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.grey.shade500,
+          title: Text('Cadastrar'),
+          centerTitle: true,
+        ),
+        body: Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            children: [
+              TextField(
+                controller: nomecompleto,
+                decoration: InputDecoration(
+                    labelText: 'Nome Completo', border: OutlineInputBorder()),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: email,
+                decoration: InputDecoration(
+                    labelText: 'E-mail', border: OutlineInputBorder()),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                controller: senha,
+                decoration: InputDecoration(
+                    labelText: 'Senha', border: OutlineInputBorder()),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.grey.shade500),
+                onPressed: () {
+                  setState(() {
+                    //
+                    //CHAMAR OUTRA TELA
+                    //
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        'VERIFIQUE SUA CAIXA DE ENTRADA',
+                        textAlign: TextAlign.center,
+                      ),
+                      duration: Duration(seconds: 4),
+                    ));
+                  });
+                },
+                child: Text('CADASTRAR',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
+        ));
   }
 }

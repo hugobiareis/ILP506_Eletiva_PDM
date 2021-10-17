@@ -439,6 +439,9 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                           ),
                           //CAMPO SENHA
                           TextField(
+                            obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
                             controller: senha,
                             decoration: InputDecoration(
                               labelText: 'Senha',

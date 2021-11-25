@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
+import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class TelaHome extends StatefulWidget {
   const TelaHome({Key? key}) : super(key: key);
@@ -138,4 +142,8 @@ class _TelaHomeState extends State<TelaHome> {
       ),
     );
   }
+}
+
+Future<Widget> GetImage(BuildContext context, String imageName) async{
+  await FirebaseFirestore
 }

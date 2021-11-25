@@ -23,10 +23,6 @@ Future<void> main() async {
   ));
 }
 
-//
-//CLASSE PARA ENVIAR DADOS DE UMA TELA PARA OUTRA
-//
-
 
 
 

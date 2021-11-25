@@ -95,6 +95,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
           FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set(
             {
             'nome': nome,
+            'sobrenome': sobrenome,
+            'telefone': telefone,
             'email':email,
           }
           ).then((value) {

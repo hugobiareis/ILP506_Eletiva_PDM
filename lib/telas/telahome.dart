@@ -20,7 +20,7 @@ class _TelaHomeState extends State<TelaHome> {
   }
 
   Future<Widget> _getImage(BuildContext context, String imageName) async {
-    Image image = Image.asset('imagens/logo_farb.png');
+    Image image = Image.asset('imagens/icon.png');
     await FireStorageService.loadImage(context, imageName).then((value) {
       image = Image.network(value.toString(), fit: BoxFit.scaleDown);
     });
@@ -125,14 +125,14 @@ class _TelaHomeState extends State<TelaHome> {
                             Navigator.of(context).pop();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(
-                                'ADICIONADO AO CARRINHO',
+                                'ADICIONADO AO ORÇAMENTO',
                                 textAlign: TextAlign.center,
                               ),
                               duration: Duration(seconds: 4),
                             ));
                           });
                         },
-                        child: Text('ADICIONAR AO CARRINHO',
+                        child: Text('ADICIONAR AO ORÇAMENTO',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -197,7 +197,7 @@ class _TelaHomeState extends State<TelaHome> {
               final dados = snapshot.requireData;
               return GridView.builder(
                 padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.height / 20),
+                    EdgeInsets.all(MediaQuery.of(context).size.height / 50),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: (MediaQuery.of(context).size.width ~/ 180)),
                 scrollDirection: Axis.vertical,
@@ -219,118 +219,3 @@ class FireStorageService extends ChangeNotifier {
     return FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 }
-
-
-/*
- var lista = [];
-  var descr = [];
-
-  @override
-  void initState() {
-    lista.add("Produto 1");
-    lista.add("Produto 2");
-    lista.add("Produto 3");
-    lista.add("Produto 4");
-    lista.add("Produto 5");
-    lista.add("Produto 6");
-    lista.add("Produto 7");
-    descr.add("Detalhes do produto 1");
-    descr.add("Detalhes do produto 2");
-    descr.add("Detalhes do produto 3");
-    descr.add("Detalhes do produto 4");
-    descr.add("Detalhes do produto 5");
-    descr.add("Detalhes do produto 6");
-    descr.add("Detalhes do produto 7");
-    super.initState();
-  }
-
-
-
-
-GridView.builder(
-        padding: EdgeInsets.all(10),
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        scrollDirection: Axis.vertical,
-        itemCount: lista.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-              child: Card(
-                elevation: 30,
-                shadowColor: Colors.grey.shade500,
-                child: GridTile(
-                  header: Text(
-                    lista[index],
-                    textAlign: TextAlign.center,
-                  ),
-                  child: Icon(Icons.card_giftcard_outlined, size: 100),
-                  footer: Text(
-                    descr[index],
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('DETALHES DO PRODUTO'),
-                        content: SizedBox(
-                          height: MediaQuery.of(context).size.height / 2,
-                          child: Column(
-                            children: [
-                              //
-                              //CAMPO DE TEXTO E BOTAO DE ESQUECI SENHA
-                              //
-                              Icon(Icons.card_giftcard_outlined, size: 150),
-                              Text(
-                                descr[index],
-                                textAlign: TextAlign.center,
-                              ),
-                              //BOTÃO ADICIONAR AO CARRINHO
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.grey.shade500),
-                                onPressed: () {
-                                  setState(() {
-                                    //
-                                    //ENVIAR DADOS PARA CARRINHO E FECHAR
-                                    //
-                                    Navigator.of(context).pop();
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: Text(
-                                        'ADICIONADO AO CARRINHO',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      duration: Duration(seconds: 4),
-                                    ));
-                                  });
-                                },
-                                child: Text('ADICIONAR AO CARRINHO',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              'FECHAR',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          )
-                        ],
-                      );
-                    });
-              });
-        },
-      ),
-*/

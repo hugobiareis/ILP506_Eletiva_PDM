@@ -43,7 +43,7 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carrinho'),
+        title: Text('Orçamento'),
         centerTitle: true,
         backgroundColor: Colors.grey.shade500,
         actions: [Text(obj)],

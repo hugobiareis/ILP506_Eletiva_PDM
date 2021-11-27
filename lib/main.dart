@@ -23,7 +23,8 @@ Future<void> main() async {
   ));
 }
 
-
+//PARA EXECUTAR O APP
+//flutter run -d chrome --no-sound-null-safety --web-renderer=html
 
 
 

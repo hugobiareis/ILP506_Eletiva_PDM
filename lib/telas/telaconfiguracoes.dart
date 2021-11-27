@@ -25,6 +25,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
     var obj = ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.grey.shade500,
         centerTitle: true,
@@ -32,8 +33,10 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
           'Configurações',
         ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             //
             //IMAGEM E TEXTBOX DE LOGIN

@@ -127,6 +127,7 @@ class _TelaHomeState extends State<TelaHome> {
                               content: Text(
                                 'ADICIONADO AO ORÇAMENTO',
                                 textAlign: TextAlign.center,
+                                maxLines: 1,
                               ),
                               duration: Duration(seconds: 4),
                             ));

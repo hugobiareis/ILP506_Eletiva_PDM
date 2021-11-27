@@ -23,11 +23,35 @@ Future<void> main() async {
   ));
 }
 
+
+
+/* 
 //PARA EXECUTAR O APP
-//flutter run -d chrome --no-sound-null-safety --web-renderer=html
+
+flutter run -d chrome --no-sound-null-safety --web-renderer=html
+
+//PARA CRIAR O ICONE DO APLICATICO
+locarliar no pubspec.yaml
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.9.2"
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^1.0.0
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "imagens/icon.png"    <-----------------x
 
 
-
+depois executar
+flutter pub pub run flutter_launcher_icons:main
+*/
 
 
 

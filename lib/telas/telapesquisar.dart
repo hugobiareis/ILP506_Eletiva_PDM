@@ -1,6 +1,10 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:catalogo_farb/telas/telahome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 
 class TelaPesquisar extends StatefulWidget {
@@ -22,9 +26,10 @@ class _TelaPesquisarState extends State<TelaPesquisar> {
 */
   @override
   Widget build(BuildContext context) {
-    var obj = ModalRoute.of(context)!.settings.arguments as String;
-    // ignore: prefer_conditional_assignment, unnecessary_null_comparison
-    if (obj == null) obj = "Visitante";
+    var obj = Obj("Visitante", "");
+    var teste = ModalRoute.of(context)!.settings.arguments as Obj;
+    if (teste != null) obj = teste;
+    
     Query pesquisa = FirebaseFirestore.instance
         .collection('products')
         .where("lanc", isEqualTo: '');
@@ -67,7 +72,7 @@ class _TelaPesquisarState extends State<TelaPesquisar> {
                 scrollDirection: Axis.vertical,
                 itemCount: dados.size,
                 itemBuilder: (context, index) {
-                  return itemLista(context, dados.docs[index],obj);
+                  return itemLista(context, dados.docs[index],obj.nomeuser);
                 },
               );
           }

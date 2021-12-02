@@ -1,7 +1,11 @@
+// ignore_for_file: unnecessary_null_comparison, prefer_conditional_assignment
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 class TelaHome extends StatefulWidget {
   const TelaHome({Key? key}) : super(key: key);
@@ -34,10 +38,10 @@ class _TelaHomeState extends State<TelaHome> {
 //
 //RECEBER DADOS DE OUTRA TELA
 //
-    var obj = ModalRoute.of(context)!.settings.arguments as String;
-
-    // ignore: prefer_conditional_assignment, unnecessary_null_comparison
-    if (obj == null) obj = "Visitante";
+    var obj = Obj("Visitante", "");
+    var teste = ModalRoute.of(context)!.settings.arguments as Obj;
+    if (teste != null) obj = teste;
+    //if (obj.nomeuser == null) obj.nomeuser = "Visitante";
 
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +51,7 @@ class _TelaHomeState extends State<TelaHome> {
         actions: [
           Padding(
             padding: EdgeInsets.all(15),
-            child: Text(obj),
+            child: Text(obj.nomeuser),
           )
         ],
       ),
@@ -76,7 +80,7 @@ class _TelaHomeState extends State<TelaHome> {
                 scrollDirection: Axis.vertical,
                 itemCount: dados.size,
                 itemBuilder: (context, index) {
-                  return itemLista(context, dados.docs[index], obj);
+                  return itemLista(context, dados.docs[index], obj.nomeuser);
                 },
               );
           }

@@ -50,7 +50,8 @@ class _LancamentosState extends State<Lancamentos> {
           BottomNavigationBarItem(
               icon: Icon(Icons.search_outlined), label: 'Pesquisar'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: 'Orçamento'),
+              icon: Icon(Icons.edit_outlined), label: 'Editar'),
+              //icon: Icon(Icons.shopping_cart_outlined), label: 'Orçamento'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings_outlined), label: 'Configurações'),
         ],

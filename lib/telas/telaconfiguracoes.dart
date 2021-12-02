@@ -1,7 +1,10 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:catalogo_farb/telas/lacamentos.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '/main.dart';
 
 class TelaConfiguracoes extends StatefulWidget {
   const TelaConfiguracoes({Key? key}) : super(key: key);
@@ -22,7 +25,10 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
 
   @override
   Widget build(BuildContext context) {
-    var obj = ModalRoute.of(context)!.settings.arguments as String;
+    
+   var obj = Obj("Visitante", "");
+    var teste = ModalRoute.of(context)!.settings.arguments as Obj;
+    if (teste != null) obj = teste;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -44,8 +50,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
           //
           //CONDICIONAL PARA SABER SE ESTÁ LOGADO OU COMO VISITANTE
           //
-          // ignore: unnecessary_null_comparison
-          (obj == null)
+          (obj.nomeuser == 'Visitante')
               ? Expanded(
                   //
                   //SE SIM EXECUTA ESSE CONTAINER
@@ -89,7 +94,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                           style: ElevatedButton.styleFrom(
                               primary: Colors.grey.shade500),
                           onPressed: () {
-                            login(email.text, senha.text);
+                            login(email.text, senha.text, obj);
                           },
                           child: Text('LOGIN',
                               style: TextStyle(
@@ -209,7 +214,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                   child: Column(
                     children: [
                       Text(
-                        "Você está logado como " + obj,
+                        "Você está logado como " + obj.nomeuser,
                         style: TextStyle(fontSize: 30),
                       ),
                       ElevatedButton(
@@ -318,7 +323,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
     );
   }
 
-  void login(email, senha) {
+  void login(email, senha, Obj objeto) {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: senha)
         .then((value) {
@@ -327,8 +332,8 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
           .doc(value.user!.uid)
           .get()
           .then((value) {
-        var user = value.data()!['nome'];
-        Navigator.of(context).pushReplacementNamed('t2', arguments: user);
+        objeto.nomeuser = value.data()!['nome'];
+        Navigator.of(context).pushReplacementNamed('t2', arguments: objeto);
       });
     }).catchError((erro) {
       var mensagem = '';

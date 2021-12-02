@@ -45,119 +45,123 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
   Widget novaLista(item) {
     String cod = item.data()['cod'];
     String descr = item.data()['descricao'];
-    return ListTile(
-        title: Text(cod),
-        subtitle: Text(descr),
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () {
-            listateste.doc(item.id).delete();
-          },
-        ),
-        onTap: () {
-          getDocumentById(item.id);
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Modificar"),
-                  content: SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
-                    width: MediaQuery.of(context).size.height / 2,
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: txtCod,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Codigo',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: txtDescricao,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Descrição',
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        TextField(
-                          controller: txtDetalhes,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Detalhes',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: txtCategoria,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Categoria',
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 150,
-                              child: OutlinedButton(
-                                child: const Text('Salvar'),
-                                onPressed: () {
-                                  //
-                                  // ATUALIZAR DOCUMENTO NO FIRESTORE
-                                  //
-                                  FirebaseFirestore.instance
-                                      .collection('listateste')
-                                      .doc(item.id.toString())
-                                      .set({
-                                    'cod': txtCod.text,
-                                    'descricao': txtDescricao.text,
-                                    'detalhes': txtDetalhes.text,
-                                    'categoria': txtCategoria.text
-                                  });
-
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content:
-                                        Text('Operação realizada com sucesso!'),
-                                    duration: Duration(seconds: 2),
-                                  ));
-
-                                  Navigator.of(context).pop();
-                                },
-                              ),
+    return Card(
+      elevation: MediaQuery.of(context).size.height / 50,
+      shadowColor: Colors.grey.shade200,
+      child: ListTile(
+          title: Text(cod),
+          subtitle: Text(descr),
+          trailing: IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              listateste.doc(item.id).delete();
+            },
+          ),
+          onTap: () {
+            getDocumentById(item.id);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Modificar"),
+                    content: SizedBox(
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: MediaQuery.of(context).size.height / 2,
+                      child: Column(
+                        children: [
+                          TextField(
+                            controller: txtCod,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
                             ),
-                            SizedBox(
-                              width: 150,
-                              child: OutlinedButton(
-                                  child: const Text('Cancelar'),
+                            decoration: const InputDecoration(
+                              labelText: 'Codigo',
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: txtDescricao,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Descrição',
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          TextField(
+                            controller: txtDetalhes,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Detalhes',
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: txtCategoria,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Categoria',
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 150,
+                                child: OutlinedButton(
+                                  child: const Text('Salvar'),
                                   onPressed: () {
+                                    //
+                                    // ATUALIZAR DOCUMENTO NO FIRESTORE
+                                    //
+                                    FirebaseFirestore.instance
+                                        .collection('listateste')
+                                        .doc(item.id.toString())
+                                        .set({
+                                      'cod': txtCod.text,
+                                      'descricao': txtDescricao.text,
+                                      'detalhes': txtDetalhes.text,
+                                      'categoria': txtCategoria.text
+                                    });
+    
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text('Operação realizada com sucesso!'),
+                                      duration: Duration(seconds: 2),
+                                    ));
+    
                                     Navigator.of(context).pop();
-                                  }),
-                            ),
-                          ],
-                        )
-                      ],
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: 150,
+                                child: OutlinedButton(
+                                    child: const Text('Cancelar'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    }),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              });
-        });
+                  );
+                });
+          }),
+    );
   }
 
   @override
@@ -199,11 +203,17 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                     );
                   default:
                     final dados = snapshot.requireData;
-                    return ListView.builder(
-                        itemCount: dados.size,
-                        itemBuilder: (context, index) {
-                          return novaLista(dados.docs[index]);
-                        });
+                    return Container(
+                      padding: EdgeInsets.all(MediaQuery.of(context).size.height / 50),
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          
+                          itemCount: dados.size,
+                          itemBuilder: (context, index) {
+                            return
+                              novaLista(dados.docs[index]);
+                          }),
+                    );
                 }
               },
             ),
@@ -222,7 +232,7 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text("Modificar"),
+                    title: Text("Adicionar Novo"),
                     content: SizedBox(
                       height: MediaQuery.of(context).size.height / 2,
                       width: MediaQuery.of(context).size.height / 2,

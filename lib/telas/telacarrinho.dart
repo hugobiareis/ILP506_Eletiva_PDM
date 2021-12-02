@@ -46,7 +46,12 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
         title: Text('Orçamento'),
         centerTitle: true,
         backgroundColor: Colors.grey.shade500,
-        actions: [Text(obj)],
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(obj),
+          )
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(30),

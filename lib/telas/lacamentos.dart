@@ -55,9 +55,7 @@ class _LancamentosState extends State<Lancamentos> {
               icon: Icon(Icons.settings_outlined), label: 'Configurações'),
         ],
         onTap: (index) {
-          setState(() {
             telaAtual = index;
-          });
           pageController.animateToPage(index,
               duration: Duration(microseconds: 300), curve: Curves.easeIn);
         },

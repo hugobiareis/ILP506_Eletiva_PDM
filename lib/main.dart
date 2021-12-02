@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, import_of_legacy_library_into_null_safe, prefer_conditional_assignment, unnecessary_null_comparison
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'telas/lacamentos.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
     },
   ));
 }
+
 
 
 

@@ -105,79 +105,71 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                           style: ElevatedButton.styleFrom(
                               primary: Colors.grey.shade500),
                           onPressed: () {
-                            setState(() {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('ESQUECI MINHA SENHA'),
-                                      content: SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                4,
-                                        child: Column(
-                                          children: [
-                                            //
-                                            //CAMPO DE TEXTO E BOTAO DE ESQUECI SENHA
-                                            //
-                                            TextField(
-                                              controller: email,
-                                              decoration: InputDecoration(
-                                                labelText: 'email',
-                                                border: OutlineInputBorder(),
-                                              ),
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('ESQUECI MINHA SENHA'),
+                                    content: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              4,
+                                      child: Column(
+                                        children: [
+                                          //
+                                          //CAMPO DE TEXTO E BOTAO DE ESQUECI SENHA
+                                          //
+                                          TextField(
+                                            controller: email,
+                                            decoration: InputDecoration(
+                                              labelText: 'email',
+                                              border: OutlineInputBorder(),
                                             ),
-                                            SizedBox(
-                                              height: 30,
-                                            ),
-                                            //BOTÃO DE LOGIN
-                                            ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  primary:
-                                                      Colors.grey.shade500),
-                                              onPressed: () {
-                                                setState(() {
-                                                  //
-                                                  //ENVIAR DADOS PARA RECUPERAR SENHA E FECHAR
-                                                  //
-                                                  Navigator.of(context).pop();
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(SnackBar(
-                                                    content: Text(
-                                                      'VERIFIQUE SUA CAIXA DE ENTRADA',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    duration:
-                                                        Duration(seconds: 4),
-                                                  ));
-                                                });
-                                              },
-                                              child: Text('RECUPERAR SENHA',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(
-                                            'FECHAR',
-                                            style:
-                                                TextStyle(color: Colors.black),
                                           ),
-                                        )
-                                      ],
-                                    );
-                                  });
-                            });
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          //BOTÃO DE ESQUECI A SENHA
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                primary: Colors.grey.shade500),
+                                            onPressed: () {
+                                              //
+                                              //ENVIAR DADOS PARA RECUPERAR SENHA E FECHAR
+                                              //
+                                              Navigator.of(context).pop();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                  'VERIFIQUE SUA CAIXA DE ENTRADA',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                duration: Duration(seconds: 4),
+                                              ));
+                                            },
+                                            child: Text('RECUPERAR SENHA',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text(
+                                          'FECHAR',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                });
                           },
                           child: Text('ESQUECI MINHA SENHA',
                               style: TextStyle(
@@ -195,13 +187,10 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                           style: ElevatedButton.styleFrom(
                               primary: Colors.grey.shade500),
                           onPressed: () {
-                            setState(() {
-                              //
-                              //CHAMAR OUTRA TELA
-                              //
-                              Navigator.pushNamed(context, 't3',
-                                  arguments: null);
-                            });
+                            //
+                            //CHAMAR OUTRA TELA
+                            //
+                            Navigator.pushNamed(context, 't3', arguments: null);
                           },
                           child: Text('CADASTRAR',
                               style: TextStyle(
@@ -252,9 +241,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
               Switch(
                   value: swnotif,
                   onChanged: (value) {
-                    setState(() {
-                      swnotif = value;
-                    });
+                    swnotif = value;
                   }),
               Text('Notificações'),
             ],
@@ -264,9 +251,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
               Switch(
                   value: swsound,
                   onChanged: (value) {
-                    setState(() {
-                      swsound = value;
-                    });
+                    swsound = value;
                   }),
               Text('Sons')
             ],

@@ -25,8 +25,7 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
 
   @override
   Widget build(BuildContext context) {
-    
-   var obj = Obj("Visitante", "");
+    var obj = Obj("Visitante", "");
     var teste = ModalRoute.of(context)!.settings.arguments as Obj;
     if (teste != null) obj = teste;
 
@@ -216,6 +215,9 @@ class _TelaConfiguracoesState extends State<TelaConfiguracoes> {
                       Text(
                         "Você está logado como " + obj.nomeuser,
                         style: TextStyle(fontSize: 30),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 20,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(

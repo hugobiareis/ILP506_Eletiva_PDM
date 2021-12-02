@@ -181,138 +181,144 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
           )
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: listateste.snapshots(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return const Center(
-                child: Text('Não foi possivel carregar'),
-              );
-            case ConnectionState.waiting:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            default:
-              final dados = snapshot.requireData;
-              return ListView.builder(
-                  itemCount: dados.size,
-                  itemBuilder: (context, index) {
-                    return novaLista(dados.docs[index]);
-                  });
-          }
-        },
-      ),
+      body: (obj.nomeuser == "Visitante")
+          ? Center(
+              child: Text("Faça Login para alterar Produtos"),
+            )
+          : StreamBuilder<QuerySnapshot>(
+              stream: listateste.snapshots(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                    return const Center(
+                      child: Text('Não foi possivel carregar'),
+                    );
+                  case ConnectionState.waiting:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  default:
+                    final dados = snapshot.requireData;
+                    return ListView.builder(
+                        itemCount: dados.size,
+                        itemBuilder: (context, index) {
+                          return novaLista(dados.docs[index]);
+                        });
+                }
+              },
+            ),
       backgroundColor: Colors.grey.shade100,
       floatingActionButton: FloatingActionButton(
         foregroundColor: Colors.white,
         backgroundColor: Colors.grey,
         child: const Icon(Icons.add),
         onPressed: () {
-          txtCod.text = "";
-          txtDescricao.text = "";
-          txtDetalhes.text = "";
-          txtCategoria.text = "";
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Modificar"),
-                  content: SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
-                    width: MediaQuery.of(context).size.height / 2,
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: txtCod,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Codigo',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: txtDescricao,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Descrição',
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        TextField(
-                          controller: txtDetalhes,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Detalhes',
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: txtCategoria,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'Categoria',
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 150,
-                              child: OutlinedButton(
-                                child: const Text('Salvar'),
-                                onPressed: () {
-                                  //
-                                  // ADICIONAR DOCUMENTO NO FIRESTORE
-                                  //
-                                  FirebaseFirestore.instance
-                                      .collection('listateste')
-                                      .add({
-                                    'cod': txtCod.text,
-                                    'descricao': txtDescricao.text,
-                                    'detalhes': txtDetalhes.text,
-                                    'categoria': txtCategoria.text
-                                  });
-
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content:
-                                        Text('Operação realizada com sucesso!'),
-                                    duration: Duration(seconds: 2),
-                                  ));
-
-                                  Navigator.of(context).pop();
-                                },
-                              ),
+          if (obj.nomeuser != "Visitante") {
+            txtCod.text = "";
+            txtDescricao.text = "";
+            txtDetalhes.text = "";
+            txtCategoria.text = "";
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Modificar"),
+                    content: SizedBox(
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: MediaQuery.of(context).size.height / 2,
+                      child: Column(
+                        children: [
+                          TextField(
+                            controller: txtCod,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
                             ),
-                            SizedBox(
-                              width: 150,
-                              child: OutlinedButton(
-                                  child: const Text('Cancelar'),
+                            decoration: const InputDecoration(
+                              labelText: 'Codigo',
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: txtDescricao,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Descrição',
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          TextField(
+                            controller: txtDetalhes,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Detalhes',
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextField(
+                            controller: txtCategoria,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Categoria',
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 150,
+                                child: OutlinedButton(
+                                  child: const Text('Salvar'),
                                   onPressed: () {
+                                    //
+                                    // ADICIONAR DOCUMENTO NO FIRESTORE
+                                    //
+                                    FirebaseFirestore.instance
+                                        .collection('listateste')
+                                        .add({
+                                      'cod': txtCod.text,
+                                      'descricao': txtDescricao.text,
+                                      'detalhes': txtDetalhes.text,
+                                      'categoria': txtCategoria.text
+                                    });
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content: Text(
+                                          'Operação realizada com sucesso!'),
+                                      duration: Duration(seconds: 2),
+                                    ));
+
                                     Navigator.of(context).pop();
-                                  }),
-                            ),
-                          ],
-                        )
-                      ],
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: 150,
+                                child: OutlinedButton(
+                                    child: const Text('Cancelar'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    }),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              });
+                  );
+                });
+          }
         },
       ),
     );
